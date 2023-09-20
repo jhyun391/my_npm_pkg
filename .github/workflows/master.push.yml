@@ -16,7 +16,7 @@ jobs:
   build_and_publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -39,6 +39,14 @@ jobs:
 
       # - name: Run Tests
       #   run: npm test
+      - name: "Automated Version Bump"
+        uses: "phips28/gh-action-bump-version@master"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          skip-tag: "true"
+          major-wording: "(MAJOR)"
+          minor-wording: "(MINOR),feat/,Feat/"
 
       - name: Publish to GitHub Packages
         run: npm publish --tag experimental

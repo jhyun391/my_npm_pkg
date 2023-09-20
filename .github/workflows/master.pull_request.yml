@@ -1,0 +1,45 @@
+name: cicd
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - main
+    paths-ignore:
+      - "**/*.md"
+      - ".*"
+      - ".github/**/*"
+      - "docs/**/*"
+      - "scripts/**/*"
+      - "test/**/*"
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@jhyun391"
+
+      - name: Install dependencies
+        run: npm install --tag experimental
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Run Tests
+      #   run: npm test

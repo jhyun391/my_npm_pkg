@@ -38,4 +38,4 @@ jobs:
       - name: Branch 2
         if: steps.bash-simple.outputs.status == 'failure'
         run: |
-          echo "run scrip
+          echo "run script - failure"

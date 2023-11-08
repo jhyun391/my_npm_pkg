@@ -25,5 +25,17 @@ jobs:
       - name: Run script - sub script with output
         id: bash-simple
         run: |
+          export LOG_LEVEL=${{ github.event.inputs.logLevel }}
           echo "run script"
-          echo "Tags: ${{ github.event.inputs.tags }}
+          echo "Tags: ${{ github.event.inputs.tags }}"
+          echo "status=failure" >> $GITHUB_OUTPUT
+
+      - name: Branch 1
+        if: steps.bash-simple.outputs.status == 'success'
+        run: |
+          echo "run script - success"
+
+      - name: Branch 2
+        if: steps.bash-simple.outputs.status == 'failure'
+        run: |
+          echo "run scrip

@@ -1,0 +1,29 @@
+name: schedule
+
+on:
+  schedule:
+    - cron: "* * * * *"
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level"
+        required: true
+        default: "warning"
+      tags:
+        description: "Test scenario tags"
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run script - sub script with output
+        id: bash-simple
+        run: |
+          echo "run script"
+          echo "Tags: ${{ github.event.inputs.tags }}"

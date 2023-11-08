@@ -11,6 +11,7 @@ on:
       - "docs/**/*"
       - "scripts/**/*"
       - "test/**/*"
+      - "package.json"
 
 jobs:
   build_and_publish:

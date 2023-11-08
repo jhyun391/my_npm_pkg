@@ -26,4 +26,4 @@ jobs:
         id: bash-simple
         run: |
           echo "run script"
-          echo "Tags: ${{ github.event.inputs.tags }}"
+          echo "Tags: ${{ github.event.inputs.tags }}
